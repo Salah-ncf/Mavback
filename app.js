@@ -13,12 +13,16 @@ const generateTokens = require('./gTokens');
 const authMiddleware = require('./middleware/authMiddleware');
 const jwt = require('jsonwebtoken');
 const generateProfilePicture = require('./generatImage');
-const mongoURI = 'mongodb://localhost:27017/maverick';
+// const mongoURI = 'mongodb://localhost:27017/maverick';
+const mongoURI = 'mongodb+srv://masci:iG9h86nrxVDuuepB@cluster0.l6dgo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+
+
+
 const Magazine = require('./models/magazine')
 const multer = require('multer')
 const axios = require('axios');
 const GROQ_API_KEY = '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';
-const ShoppingCartRoute=require('./routes/ShoppingCart')
+const ShoppingCartRoute = require('./routes/ShoppingCart')
 
 //debut checkout
 
@@ -1406,21 +1410,21 @@ app.get('/api/products/search', async (req, res) => {
 app.use('/api', ShoppingCartRoute);
 
 app.get('/men', async (req, res) => {
-  try {
-    const products = await Product.find({ gender: 'men' })
-    res.json(products)
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch products' })
-  }
+    try {
+        const products = await Product.find({ gender: 'men' })
+        res.json(products)
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch products' })
+    }
 })
 
 // Get men’s products by category (optional)
 app.get('/men/:category', async (req, res) => {
-  try {
-    const { category } = req.params
-    const products = await Product.find({ gender: 'men', category })
-    res.json(products)
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch category products' })
-  }
+    try {
+        const { category } = req.params
+        const products = await Product.find({ gender: 'men', category })
+        res.json(products)
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch category products' })
+    }
 })
